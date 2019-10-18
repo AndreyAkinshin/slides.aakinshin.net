@@ -1,0 +1,167 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+body {
+    font-family: 'Consolas';
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Consolas';
+    font-weight: normal;
+}
+
+.remark-code,
+.remark-inline-code {
+    font-family: 'Iosevka';
+}
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 auto;
+}
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+}
+table tr:first-child td, table tr:first-child th {
+    border-top: 0;
+}
+table tr td:first-child, table tr th:first-child {
+    border-left: 0;
+}
+table tr:last-child td {
+    border-bottom: 0;
+}
+table tr td:last-child, table tr th:last-child {
+    border-right: 0;
+}
+
+.red {
+    color: red;
+}
+
+.good {
+    color: #006600;
+    text-decoration: underline;
+}
+
+.bad {
+    color: red;
+    text-decoration: underline;
+}
+
+.linethrough {
+    text-decoration: line-through;
+}
+
+.highlight {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+.pull {
+    float: left;
+}
+
+.pull-left {
+    float: left;
+    width: 47%;
+}
+
+.pull-right {
+    float: right;
+    width: 47%;
+}
+
+.pull-left-33 {
+    float: left;
+    width: 33%;
+}
+
+.pull-right-66 {
+    float: right;
+    width: 66%;
+}
+
+.large {
+    font-size: 130%
+}
+
+.remark-slide-content {
+    font-size: 26px;
+}
+
+.remark-code {
+    font-size: 90%;
+}
+
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 0.05em 10px;
+    padding: 0.05em 10px;
+}
+
+.size-50  .remark-code { font-size: 50% }
+.size-70  .remark-code { font-size: 70% }
+.size-75  .remark-code { font-size: 75% }
+.size-80  .remark-code { font-size: 80% }
+.size-90  .remark-code { font-size: 90% }
+.size-100 .remark-code { font-size: 100% }
+.size-105 .remark-code { font-size: 105% }
+.size-110 .remark-code { font-size: 110% }
+.size-120 .remark-code { font-size: 120% }
+.size-130 .remark-code { font-size: 130% }
+.size-150 .remark-code { font-size: 150% }
+.size-200 .remark-code { font-size: 200% }
+
+.column-left  { float:left;  width:48% }
+.column-right { float:right; width:48% }
+.cl { float:left;  width:48% }
+.cr { float:right; width:48% }
+.c { overflow: hidden; }
+.remark-slide-content .footer {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+.top-box {
+    position: absolute;
+    top: 1em;
+}
+.bottom-hint {
+  position: absolute;
+  bottom: 2rem;
+  width: 90%;
+  text-align: right;
+  font-size: 30%;
+}
+.bottom-hint-huge {
+    position: absolute;
+    bottom: 2rem;
+    width: 90%;
+    text-align: right;
+    font-size: 70%;
+  }
+ 
+.up1 { display:block; margin-top:-1rem; }
+.up2 { display:block; margin-top:-2rem; }
+.up3 { display:block; margin-top:-3rem; }
+.up  { display:block; margin-top:-2rem; padding: 0; }
+ 
+@page {
+    size: 1210px 681px;
+    margin: 0;
+}
+
+@media print {
+    .remark-slide-scaler {
+        width: 100% !important;
+        height: 100% !important;
+        transform: scale(1) !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+}

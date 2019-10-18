@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Performance testing</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="pittsburgh.css" />
+</head>
+
+<body>
+  <textarea id="source">
+name: template-default
+layout: true
+
+<div id="slide-controller">
+  <div id="slide-prev" style="display: inline-block;" onclick="slideshow.gotoPreviousSlide()">&#9664;</div>
+  <div id="slide-next" style="display: inline-block;" onclick="slideshow.gotoNextSlide()">&#9654;</div>
+</div>
+---
+name: template-title
+layout: true
+template: template-default
+class: slide-title, center
+---
+name: template-section
+layout: true
+template: template-default
+class: slide-section, center, middle
+---
+name: template-page
+layout: true
+template: template-default
+class: slide-page
+---
+template: template-title
+
+# Performance testing
+## Andrey Akinshin, JetBrains
+### Dotnetos, Warsaw, Poland, 10.10.2019
+
+---
+template: template-section
+
+## Part 1
+## Introduction
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(1) Introduction]</div>
+
+---
+class: normal
+
+### How do we typically solve performance problems?
+
+.center[![:scale 90%](img/dino.gif)]
+
+---
+class: normal
+
+### What do we want?
+
+--
+
+1. Prevent performance degradations
+
+--
+
+2. Detect not-prevented degradations
+
+--
+
+3. Detect other kinds of performance anomalies
+
+--
+
+4. Reduce Type I (false positive) error rate<br /> *(Detecting fake problem)*
+
+--
+
+5. Reduce Type II (false negative) error rate<br /> *(Missing real problem)*
+
+--
+
+6. Automate everything
+
+---
+class: normal
+
+### Agenda
+
+* Performance Summary Reports
+
+* Performance Comparing Reports
+
+* Performance Anomalies
+
+* Performance Alarms & Asserts
+
+---
+template: template-section
+
+## Part 2
+## Performance Summary Reports
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(2) Performance Summary Reports]</div>
+
+---
+class: normal
+
+### BenchmarkDotNet
+
+.up[]
+.center[![:scale 100%](img/bdn.png)]
+
+---
+class: normal
+
+### Normal distribution
+
+.up[]
+.center[![:scale 65%](img/normal.png)]
+
+--
+
+.up1[]
+<div style="font-size: 70%">
+.c[
+> *Normality is a myth; there never was, and never will be, a normal distribution.*  
+> "Testing for normality", R.C. Geary, 1947
+]
+</div>
+
+.bottom-hint-huge[https://aakinshin.net/posts/normality/]
+
+---
+class: normal
+
+### An experiment
+
+.up[]
+.size-50[
+.center[
+```md
+| Method |     Mean |    Error |   StdDev |   Median |
+|------- |---------:|---------:|---------:|---------:|
+|      A | `136.2 ms` | 19.30 ms | 56.92 ms | 107.0 ms |
+|      B | `133.7 ms` |  4.14 ms | 12.20 ms | 130.2 ms |
+```
+]
+]
+
+--
+
+.center[![:scale 60%](img/misleading.png)]
+
+---
+class: normal
+
+### What kind of metrics should we report?
+
+.up3[]
+.center[![:scale 80%](img/cloud.png)]
+
+---
+class: normal
+
+### Mean and StdDev may be misleading
+
+.up[]
+.center[![:scale 80%](img/samestats1.png)]
+.bottom-hint[Justin Matejka, George Fitzmaurice (2017), "Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing", CHI 2017 Conference proceedings: ACM SIGCHI Conference on Human Factors in Computing Systems]
+
+---
+class: normal
+
+### Mean and StdDev may be misleading
+
+.center[![:scale 100%](img/samestats2.gif)]
+.bottom-hint[Justin Matejka, George Fitzmaurice (2017), "Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing", CHI 2017 Conference proceedings: ACM SIGCHI Conference on Human Factors in Computing Systems]
+
+
+---
+class: normal
+
+### Ranges [User-friendly approach]
+
+--
+
+.size-150[
+```md
+| Method |        Range |
+|------- |-------------:|
+|      A | `100ms..200ms` |
+|      B | `120ms..150ms` |
+```
+]
+
+---
+class: normal
+
+### Ranges and Notes [User-friendly approach]
+
+.size-150[
+```md
+| Method |        Range |         Notes |
+|------- |-------------:|--------------:|
+|      A | 100ms..200ms | `High outliers` |
+|      B | 120ms..150ms |               |
+```
+]
+
+---
+class: normal
+
+### Ranges and Notes [User-friendly approach]
+
+.size-150[
+```md
+| Method |        Range |           Notes |
+|------- |-------------:|----------------:|
+|      A | 100ms..200ms | High outliers`^1` |
+|      B | 120ms..150ms |                 |
+
+`^1 High outliers: 327ms, 364ms, 396ms`
+```
+]
+
+---
+template: template-section
+
+## Part 3
+## Performance Comparing Reports
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(3) Performance Comparing Reports]</div>
+
+---
+class: normal
+
+### Distribution comparing: Case 1
+
+.up[]
+.center[![:scale 55%](img/compare1.png)]
+
+---
+class: normal
+
+### Overview [Statistical tests]
+
+.up[]
+.center[![:scale 55%](img/statistics-tests-overview.png)]
+
+---
+class: normal
+
+### Confusing naming [Statistical tests]
+
+--
+
+* We have:
+
+--
+
+  * Null hypothesis (we don't have a degradation)
+
+--
+
+  * Alternative hypothesis (we have a degradation)
+
+--
+
+* The result: p-value
+
+--
+
+  * p-value < α: we reject the null hypothesis
+
+--
+
+  * p-value > α: we fail to reject the null hypothesis
+
+---
+class: normal
+
+### Limitations [Statistical tests]
+
+--
+
+.up[]
+```cs
+// Before changes (N = 10000; Range = [1.01min..1.02min])
+Iteration 0000:  1.011 min
+Iteration 0001:  1.014 min
+Iteration 0002:  1.021 min
+Iteration 0003:  1.017 min
+...
+Iteration 9999:  1.012 min
+```
+.up1[]
+```cs
+// After changes (N =      1; Range = [60.127min..60.127min])
+Iteration 0000: 60.127 min
+```
+
+--
+
+```md
+👨‍💼Team Lead            : Do we have a performance degradation?
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : Yes, probably we have a degradation here.
+```
+--
+.up1[]
+```cs
+👻Statistical Test     : throw new DivideByZeroException("N should be >= 1")
+```
+
+---
+class: normal
+
+### Incorrect interpretation [Statistical tests]
+
+--
+
+.up[]
+```cs
+// Before changes (N = 10000; Range = [1.01min..1.02min])
+Iteration 0000:  1.011 min
+Iteration 0001:  1.014 min
+Iteration 0002:  1.021 min
+Iteration 0003:  1.017 min
+...
+Iteration 9999:  1.012 min
+```
+.up1[]
+```cs
+// After changes (N =      3; Range = [60.1min..60.3min])
+Iteration 0000: 60.127 min
+Iteration 0001: 60.279 min
+Iteration 0002: 60.241 min
+```
+
+--
+
+```md
+👨‍💼Team Lead            : Do we have a performance degradation?
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : Yes, most likely we have a degradation here.
+```
+--
+.up1[]
+```md
+💩Statistical Test     : We fail to reject the null hypothesis.
+```
+
+---
+class: normal
+
+### Wrong question [Statistical tests]
+
+.size-80[
+.c[
+.cl[
+```cs
+// Before Changes
+public void Foo(object x)
+{
+
+
+  // Some code
+}
+```
+]
+.cr[
+```cs
+// After Changes
+public void Foo(object x)
+{
+  `if (x == null)`
+    `throw new NullReferenceException("x");`
+  // Some code
+}
+```
+]
+]
+]
+
+--
+
+```md
+👨‍💼Team Lead            : Do we have a performance degradation?
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : Yes! Because we added new code.
+```
+--
+.up1[]
+```md
+💩Statistical Test     : We fail to reject the null hypothesis.
+```
+
+---
+class: normal
+
+### Right question [Statistical tests]
+
+.size-80[
+.c[
+.cl[
+```cs
+// Before Changes
+public void Foo(object x)
+{
+
+
+  // Some code
+}
+```
+]
+.cr[
+```cs
+// After Changes
+public void Foo(object x)
+{
+  `if (x == null)`
+    `throw new NullReferenceException("x");`
+  // Some code
+}
+```
+]
+]
+]
+
+--
+
+```md
+👨‍💼Team Lead            : How big is the degradation that we have?
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : Very small, we can ignore it.
+```
+--
+.up1[]
+```cs
+👻Statistical Test     : throw new InvalidOperationException(":(")
+```
+
+---
+class: normal
+
+### Distribution comparing: Case 2
+
+.up[]
+.center[![:scale 55%](img/compare2.png)]
+
+---
+class: normal
+
+### Distribution comparing: Case 3
+
+.up[]
+.center[![:scale 55%](img/compare3.png)]
+
+---
+class: normal
+
+### Shift function
+
+.up[]
+.center[![:scale 70%](img/shift-build.png)]
+
+---
+class: normal
+
+### Shift function
+
+.up[]
+.center[![:scale 70%](img/shift.png)]
+
+---
+class: normal
+
+### Ratio function
+
+.up[]
+.center[![:scale 70%](img/ratio.png)]
+
+---
+class: normal
+
+### Distribution Comparing: Case 4
+
+.up[]
+.center[![:scale 55%](img/compare4.png)]
+
+---
+class: normal
+
+### Distribution Comparing: Case 5
+
+.up[]
+.center[![:scale 55%](img/compare5.png)]
+
+---
+class: normal
+
+### Ranges [User-friendly approach]
+
+.size-150[
+```md
+| Method |    Ratio |
+|------- |---------:|
+|      A | Baseline |
+|      B | 2.0-3.0  |
+|      C | 0.5-0.6  |
+|      D | 0.3-8.5  |
+```
+]
+
+--
+
+```md
+👨‍💼Team Lead            : Are you sure that we have a degradation?
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : Yes, I'm sure, we should investigate it!
+```
+--
+.up1[]
+```md
+👩‍💻Performance Engineer : No, we need more data to be sure.
+```
+
+---
+class: normal
+
+### Ranges and Notes [User-friendly approach]
+
+.size-150[
+```md
+| Method |    Ratio | Is result reliable?      |
+|------- |---------:|-------------------------:|
+|      A | Baseline |                          |
+|      B | 2.0-3.0  | `Most likely`              |
+|      C | 0.5-0.6  | `Most likely`              |
+|      D | 0.3-8.5  | `Not sure; need more data` |
+```
+]
+
+
+---
+template: template-section
+
+## Part 4
+## Performance Anomalies
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(4) Performance Anomalies]</div>
+
+---
+class: normal
+
+### Performance anomalies
+
+--
+
+* Changes in performance distribution<br />
+  (degradation, acceleration, something else)
+
+--
+
+* Huge duration
+
+--
+
+* Huge variance
+
+--
+
+* Huge outliers
+
+--
+
+* Multimodality
+
+--
+
+* Clasterization
+
+--
+
+* ...
+
+---
+class: normal
+
+### Changes in performance distribution
+
+.up[]
+.center[![:scale 75%](img/changes.png)]
+
+---
+class: normal
+
+### ED-PELT
+
+.center[![:scale 90%](img/edpelt.png)]
+
+.bottom-hint-huge[https://link.springer.com/article/10.1007/s11222-016-9687-5<br/>https://aakinshin.net/posts/edpelt/]
+
+---
+class: normal
+
+### Huge degradation
+
+.center[![:scale 90%](img/degradation-big.png)]
+
+---
+class: normal
+
+### Many small distributions
+
+.center[![:scale 90%](img/degradation-small.png)]
+
+---
+class: normal
+
+### Huge duration
+
+.center[![:scale 90%](img/teamcity.png)]
+
+---
+class: normal
+
+### Huge variance
+
+.center[![:scale 90%](img/analysis-anomalies-variance.png)]
+
+---
+class: normal
+
+### Huge outliers
+
+.center[![:scale 90%](img/stats-outliers.png)]
+
+---
+class: normal
+
+### Multimodality
+
+.center[![:scale 90%](img/analysis-anomalies-bimodal.png)]
+
+---
+class: normal
+
+### Multimodality
+
+.center[![:scale 90%](img/nuget-blogpost.png)]
+
+.bottom-hint-huge["A story about slow NuGet package browsing", https://aakinshin.net/posts/nuget-package-browsing/]
+
+---
+class: normal
+
+### Clasterization
+
+.center[![:scale 90%](img/analysis-anomalies-clustering1.png)]
+
+---
+class: normal
+
+### Clasterization
+
+.center[![:scale 90%](img/analysis-anomalies-clustering2.png)]
+
+---
+class: normal
+
+### Clasterization
+
+.center[![:scale 90%](img/analysis-anomalies-clustering3.png)]
+
+
+---
+class: normal
+
+### False anomalies
+
+.center[![:scale 37%](img/friends.jpg)]
+
+--
+
+* Changes in tests
+
+--
+
+* Changes in the test order
+
+--
+
+* Changes in CI agent software/hardware
+
+--
+
+* Any other changes
+
+---
+template: template-section
+
+## Part 5
+## Performance Alarms & Asserts
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(5) Performance Alarms & Asserts]</div>
+
+---
+class: normal
+
+### Alarms vs. Asserts
+
+|                  | Alarms              | Asserts        |
+|:-----------------|:--------------------|:---------------|
+| Action           | Send a notification | Fail a test    |
+| False-positive   | Acceptable          | Not acceptable |
+| Detection moment | After changes       | Before changes |
+| Amount of data   | Doesn't matter      | A lot          |
+
+---
+class: normal
+
+### Performance data
+
+--
+
+* Sources
+  * Unit/Integration/Functional/End-to-end tests
+  * Microbenchmarks
+  * Stress testing
+  * GUI tests
+  * Fuzz testing
+  * Monitoring
+  * Telemetry
+--
+
+* Metrics
+  * Wall-clock time of the whole test
+  * Wall-clock time of the test stages
+  * CPU/Memory/Disk/Network usage
+  * Performance counters (e.g., GC.CollectionCount)
+  * Hardware counters (e.g., CacheMisses, BranchMispredictions)
+
+---
+class: normal
+
+### Environment
+
+--
+.up[]
+.center[My workplace:]
+.center[![:scale 70%](img/desktop.jpg)]
+
+---
+class: normal
+
+### Physical environment
+
+.pull-left-33[![:scale 100%](img/env1.jpg)<br />In a freezer]
+.pull-left-33[![:scale 100%](img/env2.jpg)<br />In a blanket]
+.pull-left-33[![:scale 100%](img/env3.jpg)<br />In an owen]
+
+---
+class: normal
+
+### Dashboard-oriented approach for alarms
+
+.up[]
+.center[**Worst degradations**]
+.up1[]
+
+| Test    | Ratio      |
+|--------:|-----------:|
+| Test472 | 35.0..48.0 |
+| Test982 | 10.0..12.0 |
+| Test872 |  1.1.. 1.2 |
+| Test375 |  1.0.. 1.1 |
+| Test184 |  0.9.. 1.0 |
+| Test592 |  0.9.. 1.0 |
+| Test824 |  0.9.. 1.0 |
+| Test294 |  0.9.. 1.0 |
+| Test235 |  0.9.. 1.0 |
+| Test948 |  0.9.. 1.0 |
+
+---
+class: normal
+
+### Absolute Threshold [Asserts]
+
+.up[]
+
+```cs
+[Test(Timeout = 5000)]
+public void Foo()
+{
+  // ...
+}
+```
+
+---
+class: normal
+
+### Relative Threshold [Asserts]
+
+.up[]
+
+```cs
+[Benchmark]
+public void Foo()
+{
+  // ...
+}
+
+[Benchmark]
+public void Baseline()
+{
+  // ...
+}
+
+[Test]
+public void VerifyFooPerf()
+{
+  Assert.True(Mean(Foo) / Mean(Baseline) > 5000);
+}
+```
+
+---
+class: normal
+
+### Adaptive Threshold [Asserts]
+
+.up[]
+
+```cs
+[Test]
+public void VerifyPerf(history: List<double>, current: List<double>)
+{
+  var result = Compare(history, current)
+  Assert.True(result.Ratio.Upper < 2);
+}
+```
+
+---
+class: normal
+
+### Adaptive Threshold + Optional Stopping [Asserts]
+
+.up[]
+
+```cs
+[Test]
+public void VerifyPerf(history: List<double>)
+{
+  var current = new List<double>();
+  while (true)
+  {
+    var duration = Measure();
+    current.Add(duration);
+    var result = Compare(history, current);
+
+    if (result.Ratio.Upper > 2)
+    {
+      if (result.Notes == "We are sure")
+        Fail();   // A degradation is detected!
+      if (result.Notes == "We are not sure")
+        continue; // We need more data
+    } else
+      return;     // No major degradations are detected
+  }
+}
+```
+
+---
+template: template-section
+
+## Part 6
+## Conclusion
+
+---
+layout: true
+template: template-page
+
+<div>.footer-note[(6) Conclusion]</div>
+
+---
+class: normal
+
+### Final tips
+
+--
+
+* Make performance reports user-friendly
+
+--
+
+* Learn mathematical statistics
+
+--
+
+* Check all kinds of performance anomalies
+
+--
+
+* Use all the data that you have
+
+--
+
+* Automate everything that can be automated
+
+---
+class: normal
+
+### Performance Culture
+
+.center[![:scale 50%](img/responsibility.jpg)]
+
+---
+class: normal
+
+### My first performance monitoring attempt
+
+.up[]
+.center[![:scale 100%](img/how-it-works.gif)]
+
+---
+class: normal
+
+### Reference literature
+
+.up[]
+.center[![:scale 38%](img/book.png)]
+.bottom-hint-huge[https://aakinshin.net/prodotnetbenchmarking/]
+
+---
+class: normal
+
+### Thank you for your attention!
+
+.center[![:scale 30%](img/bdn-logo.svg)]
+
+.center[
+Andrey Akinshin
+
+https://aakinshin.net
+
+https://github.com/AndreyAkinshin
+
+https://twitter.com/andrey_akinshin
+
+andrey.akinshin@gmail.com
+]
+
+    </textarea>
+  <script src="remark.min.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+    var slideshow = remark.create({
+      highlightStyle: "vs",
+      highlightLines: true,
+      highlightSpans: true,
+      ratio: '16:9',
+      countIncrementalSlides: false
+    });
+  </script>
+</body>
+
+</html>
