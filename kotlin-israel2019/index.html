@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Idiomatic Kotlin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+	  
+      body { 
+		font-family: 'Fire Code,Droid Serif'; 
+	  }
+      h1, h2, h3 {
+        font-family: 'Fire Code,Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code 
+	  { 
+		font-family: 'Ubuntu Mono'; 
+	  }	  
+	  table {
+		border-collapse: collapse;
+		width: 1500px;
+		margin: 100px auto;		
+	  }
+	  th, td {
+		padding: 5px;
+		border: 1px solid black;
+	  }
+    .red {
+      color: red;
+    }
+	.good {
+	  color: #006600;
+	  text-decoration: underline;
+	}	
+	.bad {
+	  color: red;
+	  text-decoration: underline;
+	}
+	.linethrough {
+	  text-decoration: line-through;
+	}
+	.highlight {
+	  background-color: rgba(255,255,0,0.5);
+	}
+     .pull-left {
+        float: left;
+        width: 47%;
+      }
+     .pull-right {
+        float: right;
+        width: 47%;
+     }
+     .pull-left-33 {
+        float: left;
+        width: 33%;
+      }
+     .pull-right-66 {
+        float: right;
+        width: 66%;
+     }
+	.large { font-size: 130% } 	 
+	.remark-slide-content { font-size: 26px; }
+	.section {background-color:#57007F;color: white;}
+
+  .remark-code {
+    font-size: 90%;
+  }
+
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 0.05em 10px;
+    padding: 0.05em 10px;
+  }
+
+
+  .size-75  .remark-code { font-size: 75% }
+  .size-80  .remark-code { font-size: 80% }
+  .size-90  .remark-code { font-size: 90% }
+  .size-100 .remark-code { font-size: 100% }
+  .size-105 .remark-code { font-size: 105% }
+  .size-110 .remark-code { font-size: 110% }
+  .size-120 .remark-code { font-size: 120% }
+  .size-130 .remark-code { font-size: 130% }
+  .size-150 .remark-code { font-size: 150% }
+  .size-200 .remark-code { font-size: 200% }
+  
+  .column-left {float:left; width:48%}
+  .column-right {float:right; width:48%}
+  .remark-slide-content .footer {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+  }
+
+  @page {
+  size: 1210px 681px;
+  margin: 0;
+}
+
+@media print {
+  .remark-slide-scaler {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Idiomatic Kotlin
+### Andrey Akinshin, JetBrains
+
+---
+
+.center[![:scale 50%](kotlin.png)]
+
+---
+
+# Idiomatic
+
+> Idiomatic — using, containing, or denoting expressions that are natural to a native speaker.
+> 
+> — Oxford Dictionary
+
+---
+
+### Agenda
+
+.large[
+* Expressions
+* Loops
+* Functions
+* StdLib
+* References
+]
+
+---
+class: middle
+background-image: url(kotlin.png)
+
+# Expressions
+
+---
+
+### Expression body
+
+.column-left[
+```kotlin
+fun sum(a: Int, b: Int)`: Int` {
+    `return` a + b
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun sum(a: Int, b: Int) = a + b
+```
+]
+
+
+---
+
+### when as an expression
+
+.column-left[
+```kotlin
+fun parse(number: String): `Int?` {
+    when (number) {
+        "one" -> `return` 1
+        "two" -> `return` 2
+        else  -> `return` null
+    }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun parse(number: String) `=`
+    when (number) {
+        "one" -> 1
+        "two" -> 2
+        else  -> null
+    }
+```
+]
+
+---
+
+### when and sealed classes
+
+.column-left[
+```kotlin
+abstract class Result
+
+class Success
+    : Result()
+class Failure(val message: String)
+    : Result()
+
+fun handleResult(result: Result) =
+  when (result) {
+    is Success ->
+      "OK!"
+    is Failure ->
+      "Failed: ${result.message}"
+    `else ->`
+      `throw IllegalArgumentException()`
+  }
+```
+]
+
+--
+
+.column-right[
+```kotlin
+  `sealed` class Result
+
+  class Success
+      : Result()
+  class Failure(val message: String)
+      : Result()
+
+  fun handleResult(result: Result) =
+    when (result) {
+      is Success ->
+        "OK!"
+      is Failure ->
+        "Failed: ${result.message}"
+    }
+```
+]
+
+---
+
+### try as an expression
+
+.column-left[
+```kotlin
+fun tryParseInt(number: String): `Int?` {
+  try {
+    `return` Integer.parseInt(number)
+  } catch (e: NumberFormatException) {
+    `return` null
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun tryParseInt(number: String) `=`
+  try {
+    Integer.parseInt(number)
+  } catch (e: NumberFormatException) {
+    null
+  }
+```
+]
+
+---
+
+### Elvis
+
+.column-left[
+```kotlin
+fun foo(name: String?) {
+  val s = `if (name != null)`
+    name
+  `else`
+    "?"
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun foo(name: String?) {
+  val s = name `?:` "?"
+}
+```
+]
+
+---
+
+### Elvis before return
+
+.column-left[
+```kotlin
+class Person(
+  val name: String?,
+  val age: Int?
+)
+
+fun processPerson(p: Person) {
+  val age = p.age
+  `if (age == null)` return
+  // ...
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Person(
+  val name: String?,
+  val age: Int?
+)
+
+fun processPerson(p: Person) {
+  val age `: Int` = p.age `?:` return
+  // ...
+}
+```
+]
+
+---
+
+### Elvis before throw
+
+.column-left[
+```kotlin
+class Person(
+  val name: String?,
+  val age: Int?
+)
+
+fun processPerson(p: Person) {
+  val name = p.name
+  `if (name == null)`
+    throw IllegalArgumentException(
+      "Name required")
+  // ...
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Person(
+  val name: String?,
+  val age: Int?
+)
+
+fun processPerson(p: Person) {
+  val name = p.name `?:`
+    throw IllegalArgumentException(
+      "Name required")
+  // ...
+}
+```
+]
+
+---
+
+class: middle
+background-image: url(kotlin.png)
+
+# Loops
+
+---
+
+### Ranges
+
+.column-left[
+```kotlin
+fun isLatinUppercase(c: Char) =
+    `c >= 'A' && c <= 'Z'`
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun isLatinUppercase(c: Char) =
+    `c in 'A'..'Z'`
+```
+]
+
+---
+
+### until in loops
+
+.column-left[
+```kotlin
+fun main(args: Array<String>) {
+  for (i in 0`..`args.size-1) {
+    println("$i: ${args[i]}")
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun main(args: Array<String>) {
+  for (i in 0 `until` args.size) {
+    println("$i: ${args[i]}")
+  }
+}
+```
+]
+
+--
+
+.footer[
+```kotlin
+public `infix` fun Int.until(to: Int): IntRange {
+  if (to <= Int.MIN_VALUE) return IntRange.EMPTY
+  return this .. (to - 1).toInt()
+}
+```
+]
+
+
+---
+
+### withIndex in loops
+
+.column-left[
+```kotlin
+fun main(args: Array<String>) {
+  for (i in 0 `until` args.size) {
+    println("$i: ${args[i]}")
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun main(args: Array<String>) {
+  for ((i, arg) in args`.withIndex()`) {
+    println("$i: $arg")
+  }
+}
+```
+]
+
+---
+
+### deconstructors in loops
+
+.column-left[
+```kotlin
+fun printMap(map: Map<String, String>) {
+  for (item in map.entries) {
+    println("${item.key}=${item.value}")
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun printMap(map: Map<String, String>) {
+  for (`(key, value)` in map) {
+    println("`$key`=`$value`")
+  }
+}
+```
+]
+
+---
+class: middle
+background-image: url(kotlin.png)
+
+# Functions
+
+---
+
+### Top level functions
+
+.column-left[
+```kotlin
+class `StringUtils` {
+  `companion object` {
+     fun containsZeros(s: String) =
+        s.contains('0')
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun containsZeros(s: String) =
+  s.contains('0')
+```
+]
+
+---
+
+### Extension functions
+
+.column-left[
+```kotlin
+fun containsZeros(s: String) =
+  s.contains('0')
+
+// Usage
+val x = containsZeros("0123")
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun `String.`containsZeros() =
+  contains('0')
+
+// Usage
+val x = "0123"`.`containsZeros()
+```
+]
+
+---
+### Lambda expressions
+
+.column-left[
+```kotlin
+fun evenCount(list: List<Int>) =
+  list.count`(`{ `x ->` x % 2 == 0 }`)`
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun evenCount(list: List<Int>) =
+  list.count { `it` % 2 == 0 }
+```
+]
+
+---
+
+### Safe let call
+
+.column-left[
+```kotlin
+class Person(
+  val name: String,
+  val address: String?
+)
+
+fun printAddress(person: Person) {
+  if (`person.address != null`) {
+    println(person.address)
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Person(
+  val name: String,
+  val address: String?
+)
+
+fun printAddress(person: Person) {
+  person.address`?.let` {
+    println(it)
+  }
+}
+```
+]
+
+--
+
+.footer[
+```kotlin
+public `inline` fun <T, R> T.let(block: (T) -> R): R {
+  return block(this)
+}
+```
+]
+
+---
+
+### Initialization via apply
+
+.column-left[
+```kotlin
+class Label {
+  val text: String = ""
+  val tooltip: String = ""
+}
+
+fun createLabel(): Label {
+  val label = Label()
+  `label.`text = "Click here"
+  `label.`tooltip = "Help"
+  return label
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Label {
+  val text: String = ""
+  val tooltip: String = ""
+}
+
+fun createLabel() =
+  Label()`.apply` {
+    text = "Click here"
+    tooltip = "Help"
+  }
+```
+]
+
+--
+
+.footer[
+```kotlin
+public `inline` fun <T> T.apply(block: `T.()` -> Unit): T {
+  block()
+  return this
+}
+```
+]
+
+---
+
+### Overloads
+
+.column-left[
+```kotlin
+class Phonebook {
+  fun print() {
+    print(",")
+  }
+
+  fun print(separator: String) {
+  }
+}
+
+fun main(args: Array<String>) {
+  Phonebook().print("|")
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Phonebook {
+  fun print(separator: String `= ","`) {
+  }
+}
+
+fun main(args: Array<String>) {
+  Phonebook().print(`separator =` "|")
+}
+```
+]
+
+---
+
+### Return multiple values
+
+.column-left[
+```kotlin
+
+
+
+
+
+fun namedNum(): `Pair<Int, String>` =
+  1 to "one"
+
+fun main(args: Array<String>) {
+  val pair = namedNum()
+  val number = pair`.first`
+  val name = pair`.second`
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+  `data` class NamedNumber(
+    val number: Int,
+    val name: String
+  )
+
+  fun namedNum() = NamedNumber(1, "one")
+
+
+  fun main(args: Array<String>) {
+    val `(number, name)` = namedNum()
+  }
+```
+]
+
+---
+
+### Multideclarations and lists
+
+.column-left[
+```kotlin
+data class FileInfo(
+  val name: String,
+  val ext: String?
+)
+
+fun getInfo(fileName: String): FileInfo {
+  if ('.' in fileName) {
+    val `parts` : List<String> =
+      fileName.split('.', limit = 2)
+    return FileInfo(`parts[0], parts[1]`)
+  }
+  return FileInfo(fileName, null)
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+data class FileInfo(
+  val name: String,
+  val ext: String?
+)
+
+fun getInfo(fileName: String): FileInfo {
+  if ('.' in fileName) {
+    val `(name, ext)` =
+      fileName.split('.', limit = 2)
+    return FileInfo(`name, ext`)
+  }
+  return FileInfo(fileName, null)
+}
+```
+]
+
+---
+
+### lateinit
+
+.column-left[
+```kotlin
+class MyTest {
+  class State(val data: String)
+
+  var state: State? = null
+
+  @Before
+  fun setup() {
+    state = State("abc")
+  }
+
+  @Test
+  fun foo() {
+    Assert.assertEquals(
+        "abc",
+        `state!!`.data
+    )
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class MyTest {
+  class State(val data: String)
+
+  `lateinit` var state: State
+
+  @Before
+  fun setup() {
+      state = State("abc")
+  }
+
+  @Test
+  fun foo() {
+      Assert.assertEquals(
+          "abc",
+          `state`.data
+      )
+  }
+}
+```
+]
+---
+
+
+class: middle
+background-image: url(kotlin.png)
+
+
+# StdLib
+
+---
+
+### require
+
+.column-left[
+```kotlin
+fun calculate(n: Int) {
+  if (n <= 0)
+    throw IllegalArgumentException(
+      "n should be positive")
+  // ...
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun calculate(n: Int) {
+  `require`(n > 0) {
+    "n should be positive"
+  }
+  // ...
+}
+```
+]
+
+---
+
+### filterIsInstance
+
+.column-left[
+```kotlin
+fun getStrings(objs: List<Any>) =
+  objs.filter { it is String }
+
+val x: List<Any> = getStrings(objs)
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun getStrings(objs: List<Any>) =
+  objs.`filterIsInstance`<String>()
+
+val x: List<Strings> = getStrings(objs)
+```
+]
+
+---
+
+### mapNotNull
+
+.column-left[
+```kotlin
+data class Result(
+  val value: Any?,
+  val error: String?
+)
+
+fun listErrors(results: List<Result>)
+    : List<String> =
+  results
+    `.map` { it.error }
+    `.filterNotNull()`
+```
+]
+
+--
+
+.column-right[
+```kotlin
+data class Result(
+  val value: Any?,
+  val error: String?
+)
+
+fun listErrors(results: List<Result>)
+    : List<String> =
+  results`.mapNotNull` { it.error }
+```
+]
+
+---
+
+### compareBy
+
+.column-left[
+```kotlin
+class Person(
+  val name: String,
+  val age: Int
+)
+
+fun sortPersons(persons: List<Person>) =
+  persons.sortedWith(
+    Comparator<Person> { p1, p2 ->
+      val rc = p1.name
+                 .compareTo(p2.name)
+      if (rc != 0)
+        rc
+      else
+        p1.age - p2.age
+    })
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Person(
+  val name: String,
+  val age: Int
+)
+
+fun sortPersons(persons: List<Person>) =
+    persons.sortedWith(
+      `compareBy`(Person::name,
+                Person::age))
+```
+]
+
+---
+
+### groupBy
+
+.column-left[
+```kotlin
+class Request(
+  val url: String,
+  val remoteIP: String,
+  val timestamp: Long
+)
+
+fun analyzeLog(log: List<Request>) {
+  val map = mutableMapOf<
+    String, MutableList<Request>>()
+  for (request in log) {
+      map.getOrPut(request.url) {
+        mutableListOf()
+      }.add(request)
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+class Request(
+  val url: String,
+  val remoteIP: String,
+  val timestamp: Long
+)
+
+fun analyzeLog(log: List<Request>) {
+  val map = log`.groupBy`(Request::url)
+}
+```
+]
+
+---
+
+### coerceIn
+
+.column-left[
+```kotlin
+fun updateProgress(value: Int) {
+  val actualValue = when {
+    value < 0   -> 0
+    value > 100 -> 100
+    else        -> value
+  }
+}
+```
+]
+
+--
+
+.column-right[
+```kotlin
+
+fun updateProgress(value: Int) {
+  val actualValue =
+    value`.coerceIn`(0, 100)
+}
+```
+]
+
+---
+
+### zip
+
+.column-left[
+```kotlin
+fun calcDurations(start: LongArray,
+                  finish: LongArray) =
+    start`.mapIndexed` { index, s ->
+        finish[index] - s
+    }
+```
+]
+
+--
+
+.column-right[
+```kotlin
+fun calcDurations(start: LongArray,
+                  finish: LongArray) =
+    (start `zip` finish).map {
+      `(s, f) -> f - s`
+    }
+
+```
+]
+
+---
+class: middle
+background-image: url(kotlin.png)
+
+
+# References
+
+---
+class: center
+
+### Kotling Reference
+
+https://kotlinlang.org/docs/reference/
+
+.center[![:scale 80%](kotlinlang.png)]
+
+---
+class: center
+
+### Kotlin in action
+
+https://www.manning.com/books/kotlin-in-action
+
+.center[![:scale 35%](kotlin-in-action.png)]
+
+---
+class: center
+
+### Ideomatic Kotlin Repo
+
+https://github.com/yole/idiomatic-kotlin/
+
+.center[![:scale 80%](yole-repo.png)]
+
+---
+background-image: url(kotlin.png)
+
+# Questions?
+
+Andrey Akinshin
+
+https://aakinshin.net
+
+https://github.com/AndreyAkinshin
+
+https://twitter.com/andrey_akinshin
+
+andrey.akinshin@gmail.com
+
+
+    </textarea>
+    <script src="remark.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      remark.macros.scale = function (percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
+      var slideshow = remark.create({
+    highlightStyle: "idea",
+		highlightLines: true,
+    highlightSpans: true,
+		ratio: '16:9',
+		countIncrementalSlides: false
+		//slideNumberFormat: ''
+      });
+    </script>
+  </body>
+</html>
