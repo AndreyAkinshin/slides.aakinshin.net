@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+.remark-slide-content:not(.title):not(.blank)::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 1.9em;
+	margin: 0;
+	padding: 0;
+	background-color: #3333B2;
+}
+
+.remark-slide-content:not(.title):not(.blank)::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 1.2em;
+	margin: 0;
+	padding: 0;
+	background-color: #C2C2E8;
+}
+
+.remark-slide-content:not(.title):not(.blank) h3 {
+	color: #fff;
+	position: relative;
+	z-index: 1;
+	margin: 0;
+	padding: 0 0 .6em .5em;
+	text-align: right;
+}
+
+.remark-slide-number {
+	color: #8989D3;
+	z-index: 1;
+	font-size: .8em;
+	bottom: .1em;
+	left: .5em
+}
+.remark-slide-content .footer-note {
+    position: absolute;
+    display: block;
+	left: 5em;
+	width: 100%;
+	height: 1.2em;
+	margin: 0;
+	padding: 0;
+	color: #8989D3;
+	font-size: .8em;
+	bottom: .1em;
+	z-index: 1;
+	opacity: .5;
+}
+#slide-controller {
+    position: absolute;
+    display: block;
+	width: 100%;
+	left: 0;
+	height: 1.2em;
+	margin: 0;
+	padding: 0;
+	color: #8989D3;
+	font-size: .8em;
+	bottom: .1em;
+	z-index: 2;
+	opacity: .5;
+	text-align: right;
+	cursor: pointer;
+}

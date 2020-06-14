@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" viewBox="0 0 1600 900" width="1600" height="900" style="stroke:none;stroke-linecap:butt;stroke-linejoin:miter;stroke-width:1;stroke-dasharray:none;fill:#000000;fill-opacity:1;fill-rule:evenodd" font-family="Arial" font-size="15" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1,0,0,1,0,0)">
+    <g id="Rectangle" transform="matrix(1,0,0,1,500,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x0</text>
+    </g>
+    <g id="Text" transform="matrix(1,0,0,1,25,300)">
+      <rect x="0" y="0" width="450" height="100" style="stroke-linecap:round;stroke-linejoin:round;fill:none;fill-opacity:0;" />
+      <text x="4" y="82.5911" font-family="Consolas" font-size="53.3333">История замеров</text>
+    </g>
+    <g id="Rectangle1" transform="matrix(1,0,0,1,600,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x1</text>
+    </g>
+    <g id="Rectangle2" transform="matrix(1,0,0,1,700,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x2</text>
+    </g>
+    <g id="Rectangle3" transform="matrix(1,0,0,1,800,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x3</text>
+    </g>
+    <g id="Rectangle4" transform="matrix(1,0,0,1,900,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x4</text>
+    </g>
+    <g id="Rectangle5" transform="matrix(1,0,0,1,1000,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x5</text>
+    </g>
+    <g id="Rectangle6" transform="matrix(1,0,0,1,1100,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x6</text>
+    </g>
+    <g id="Rectangle7" transform="matrix(1,0,0,1,1200,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x7</text>
+    </g>
+    <g id="Rectangle8" transform="matrix(1,0,0,1,1300,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x8</text>
+    </g>
+    <g id="Rectangle9" transform="matrix(1,0,0,1,1400,300)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#009E73;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">x9</text>
+    </g>
+    <g id="Rectangle10" transform="matrix(1,0,0,1,500,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с0</text>
+    </g>
+    <g id="Rectangle11" transform="matrix(1,0,0,1,600,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с1</text>
+    </g>
+    <g id="Rectangle12" transform="matrix(1,0,0,1,700,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с2</text>
+    </g>
+    <g id="Rectangle13" transform="matrix(1,0,0,1,800,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с3</text>
+    </g>
+    <g id="Rectangle14" transform="matrix(1,0,0,1,900,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с4</text>
+    </g>
+    <g id="Rectangle15" transform="matrix(1,0,0,1,1000,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с5</text>
+    </g>
+    <g id="Rectangle16" transform="matrix(1,0,0,1,1100,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с6</text>
+    </g>
+    <g id="Rectangle17" transform="matrix(1,0,0,1,1200,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с7</text>
+    </g>
+    <g id="Rectangle18" transform="matrix(1,0,0,1,1300,100)">
+      <rect x="0" y="0" width="100" height="100" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#56B4E9;" />
+      <text x="23.6094" y="79.332" font-family="Consolas" font-size="48">с8</text>
+    </g>
+    <g id="Text1" transform="matrix(1,0,0,1,25,100)">
+      <rect x="0" y="0" width="450" height="100" style="stroke-linecap:round;stroke-linejoin:round;fill:none;fill-opacity:0;" />
+      <text x="4" y="82.5911" font-family="Consolas" font-size="53.3333">Стоимость</text>
+    </g>
+    <g id="Text2" transform="matrix(1,0,0,1,25,400)">
+      <rect x="0" y="0" width="450" height="125" style="stroke-linecap:round;stroke-linejoin:round;fill:none;fill-opacity:0;" />
+      <text x="4" y="95.0911" font-family="Consolas" font-size="53.3333">Обратные рёбра</text>
+    </g>
+    <path id="Connection" d="M550,300L550,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M550,215L550,200L550,215L542.5,200L550,215L557.5,200L550,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection1" d="M650,300L650,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M650,215L650,200L650,215L642.5,200L650,215L657.5,200L650,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection2" d="M750,300L750,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M750,215L750,200L750,215L742.5,200L750,215L757.5,200L750,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection3" d="M850,300L850,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M850,215L850,200L850,215L842.5,200L850,215L857.5,200L850,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection4" d="M950,300L950,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M950,215L950,200L950,215L942.5,200L950,215L957.5,200L950,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection5" d="M1050,300L1050,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M1050,215L1050,200L1050,215L1042.5,200L1050,215L1057.5,200L1050,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection6" d="M1150,300L1150,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M1150,215L1150,200L1150,215L1142.5,200L1150,215L1157.5,200L1150,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection7" d="M1250,300L1250,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M1250,215L1250,200L1250,215L1242.5,200L1250,215L1257.5,200L1250,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection8" d="M1350,300L1350,200" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:10 5;fill:none;" />
+    <path d="M1350,215L1350,200L1350,215L1342.5,200L1350,215L1357.5,200L1350,215z" style="stroke:#999999;stroke-linecap:round;stroke-linejoin:round;fill:#999999;" />
+    <path id="Connection9" d="M650,400L650,420L574.993,420L574.993,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M567.493,415L574.993,400L582.493,415L574.993,410.5z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection10" d="M750,400L750,424.799L574.993,424.799L574.993,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M567.493,415L574.993,400L582.493,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection11" d="M850,400L850,438.1318L574.993,438.1318L574.993,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M567.493,415L574.993,400L582.493,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection12" d="M950,400L950,450.3152L880.0191,450.3152C880.0191,448.9896 879.492,447.717 878.5547,446.7797C877.6174,445.8423 876.3447,445.3152 875.0191,445.3152C872.2762,445.3152 870.0191,447.5723 870.0191,450.3152L880.0191,450.3152C880.0191,448.9896 879.492,447.717 878.5547,446.7797C877.6174,445.8423 876.3447,445.3152 875.0191,445.3152C872.2762,445.3152 870.0191,447.5723 870.0191,450.3152L880.0191,450.3152C880.0191,448.9896 879.492,447.717 878.5547,446.7797C877.6174,445.8423 876.3447,445.3152 875.0191,445.3152C872.2762,445.3152 870.0191,447.5723 870.0191,450.3152L574.993,450.3152L574.993,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M567.493,415L574.993,400L582.493,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection13" d="M1050,400L1050,462.3169L875.0191,462.3169L875.0191,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M867.5191,415L875.0191,400L882.5191,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection14" d="M1150,400L1150,474.1416L875.0191,474.1416L875.0191,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M867.5191,415L875.0191,400L882.5191,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection15" d="M1250,400L1250,487.7512L875.0191,487.7512L875.0191,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M867.5191,415L875.0191,400L882.5191,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Connection16" d="M1350,400L1350,500.9146L875.0191,500.9146L875.0191,400" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:none;" />
+    <path d="M867.5191,415L875.0191,400L882.5191,415z" style="stroke:#000000;stroke-linecap:round;stroke-linejoin:round;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow" d="M1425,400Q872.0588,1292.5831 525,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M524.1252,418.4459L525,400L538.1056,413.01L533.1539,420.9706z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow1" d="M1425,400Q923.3376,1198.4655 625,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M623.8807,418.4327L625,400L637.9319,413.1826L632.8751,421.0768z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow2" d="M1425,400Q974.6164,1094.1176 725,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M723.653,418.4174L725,400L737.768,413.3414L732.614,421.1726z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow3" d="M1425,400Q1022.8261,993.8619 825,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M823.2177,418.3804L825,400L837.4488,413.6397L832.111,421.3468z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow4" d="M1425,400Q1076.1509,893.6061 925,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M922.7696,418.3314L925,400L937.1123,413.9395L931.5879,421.5139z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow5" d="M1425,400Q1281.266,501.7903 1325,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M1311.4476,412.5439L1325,400L1325.2294,418.4652L1316.118,420.6727z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow6" d="M1425,400Q1226.9182,596.9309 1225,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M1217.6647,416.9472L1225,400L1232.664,416.8012L1225.2191,422.4989z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow7" d="M1425,400Q1176.6624,695.1407 1125,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M1120.5219,417.9154L1125,400L1135.2973,415.3291L1128.8795,422.163z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+    <path id="Quadratic spline arrow8" d="M1425,400Q1124.3606,790.2813 1025,400" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:none;" />
+    <path d="M1021.8952,418.2037L1025,400L1036.4315,414.503L1030.5511,421.8045z" style="stroke:#CC79A7;stroke-linecap:round;stroke-linejoin:round;stroke-width:6;fill:#FFFFFF;" />
+  </g>
+</svg>
