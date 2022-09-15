@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Statistical approaches for performance analysis</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://fonts.googleapis.com/css?family=Londrina+Outline&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tinos">
+  <link rel="stylesheet" type="text/css" href="webfont.css" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="pittsburgh.css" />
+  <link href="img/brand/dino.svg" rel="icon" type="image/x-icon"/>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">
+  </script>
+  <script type="text/javascript">
+    var downloads = 9760780;
+    setInterval(function () {
+      downloads++;
+      var counters = document.getElementsByClassName("downloadCounter");
+      for (var i = 0; i < counters.length; i++) {
+        counters.item(i).innerHTML = 'downloads ' + downloads;
+      }
+    }, 400);
+  </script>
+</head>
+
+<body>
+  <textarea id="source">
+name: template-default
+layout: true
+
+<div id="slide-controller">
+  <div id="slide-prev" style="display: inline-block;" onclick="slideshow.gotoPreviousSlide()">&#9664;</div>
+  <div id="slide-next" style="display: inline-block;" onclick="slideshow.gotoNextSlide()">&#9654;</div>
+</div>
+---
+name: template-title
+layout: true
+template: template-default
+class: slide-title, center
+---
+name: template-section
+layout: true
+template: template-default
+class: slide-section, center, middle
+---
+name: template-page
+layout: true
+template: template-default
+class: slide-page
+---
+name: template-comics
+layout: true
+template: template-default
+class: slide-comics
+---
+template: template-title
+
+# Diploma projects: performance analysis
+## Andrey Akinshin
+### Huawei Russian Research Institute
+
+---
+layout: true
+template: template-page
+
+---
+class: normal
+
+### A typical day of a performance engineer
+
+--
+
+.up7[]
+.center-wide[
+![:scale 99%](img/artworks/dino-fire.gif)
+]
+
+---
+class: normal
+
+### The goal
+
+```kt
+@PerfTest
+fun myFirstPerfTest() {
+    val list = (100 downTo 1).toMutableList()
+    sort(list)
+}
+
+fun sort(list: MutableList<Int>) {
+    list.sort()
+}
+
+```
+
+---
+class: normal
+count: false
+
+### The goal
+
+```kt
+@PerfTest `// Should fail`
+fun myFirstPerfTest() {
+    val list = (100 downTo 1).toMutableList()
+    sort(list)
+}
+
+fun sort(list: MutableList<Int>) {
+    list.sort()
+    `for (i in 0 until list.size)`
+        `for (j in i + 1 until list.size)`
+            `assert(list[i] <= list[j])`
+}
+```
+
+---
+class: normal
+
+### The normal distribution
+
+.up[]
+.center[![:scale 85%](img/ggplot/normal.svg)]
+
+--
+
+.up[]
+<div style="font-size: 70%">
+.c[
+> *Normality is a myth; there never was, and never will be, a normal distribution.*  
+> ["Testing for normality"](http://webspace.ship.edu/pgmarr/Geo441/Readings/Geary%201947%20-%20Testing%20for%20Normality.pdf), R.C. Geary, 1947
+]
+</div>
+
+---
+class: normal
+
+### Real performance distribution
+
+.up[]
+.center[![:scale 100%](img/ggplot/windows-io.png)]
+
+---
+class: normal
+
+### Misleading summary metrics
+
+.up[]
+.center[![:scale 100%](img/screenshots/samestats2.gif)]
+.bottom-hint-huge[Justin Matejka, George Fitzmaurice (2017), ["Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing"](https://www.autodeskresearch.com/publications/samestats), CHI 2017 Conference proceedings: ACM SIGCHI Conference on Human Factors in Computing Systems]
+
+---
+class: normal
+
+### Main challenges
+
+--
+
+.center[Tricky distributions]
+
+* Heavy tails (extreme outliers)
+* Multimodality
+* Discretization
+* Skewness
+
+--
+
+.center[Business requirements]
+
+* Extremely low false-positive rate
+* Small sample sizes
+* Decent false-negative rate & effect size
+
+---
+class: normal
+
+### Up for grubs [Performance asserts]
+
+--
+
+* (Research) Extreme value theory
+
+--
+
+* (Research) Discretized distributions
+
+--
+
+* (Research) Multimodal distributions
+
+--
+
+* (Technical) Quantile effect size function competition + parameter tuning
+
+---
+class: normal
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes0.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes1.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes2.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes3.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes4.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes5.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes6.svg)]
+
+---
+class: normal
+count: false
+
+### Change point detection
+
+.up[]
+.center[![:scale 100%](img/ggplot/various-changes7.svg)]
+
+---
+class: normal
+
+### Change point detection algorithms
+
+.up[]
+.center[![:scale 95%](img/screenshots/cpd-overview.png)]
+
+.bottom-hint-huge[Truong, Charles, Laurent Oudre, and Nicolas Vayatis. ["Selective review of offline change point detection methods."](https://arxiv.org/pdf/1801.00718.pdf) Signal Processing 167 (2020): 107299.]
+
+---
+class: normal
+
+### Main challenges
+
+--
+
+.center[Tricky distributions]
+
+* Heavy tails (extreme outliers), Multimodality, Discretization, Skewness
+
+--
+
+.center[Business requirements]
+
+* Extremely low false-positive rate
+* Small sample sizes
+* Decent false-negative rate & effect size
+
+--
+
+.center[Additional business requirements]
+
+* Performance
+* Classification
+* Persistance
+
+---
+class: normal
+
+### Up for grubs [Performance asserts]
+
+--
+
+* (Research) Customization of existing detectors
+
+--
+
+* (Research) Interval CPD
+
+--
+
+* (Research) CPD+metadata
+
+--
+
+* (Research) RqqPelt
+
+--
+
+* (Technical) CPD competition + parameter tuning
+
+---
+class: normal
+
+### Requirements
+
+--
+
+.center[Basic knowledge of:]
+
+* Programming
+* Mathematical statistics
+* Probability theory
+* Calculus
+
+---
+class: normal
+
+### You will learn
+
+.vspace10[]
+.vspace10[]
+.center[How to apply statistics to real data sets]
+
+---
+layout: true
+template: template-page
+
+---
+class: normal
+
+###  
+
+.center2[Thanks for your attention!]
+
+<div style="position: absolute;right: 2em;bottom: 2em;">
+  <img src="img/favicons/huawei.svg" class="favicon" />Andrey Akinshin<br />
+  <img src="img/favicons/home.svg" class="favicon" /><a href="https://aakinshin.net">https://aakinshin.net</a><br />
+  <img src="img/favicons/github.svg" class="favicon" /><a href="https://github.com/AndreyAkinshin">https://github.com/AndreyAkinshin</a><br />
+  <img src="img/favicons/mail.svg" class="favicon" /><a href="mailto:andrey.akinshin@gmail.com">mailto:andrey.akinshin@gmail.com<a/>
+</div>
+
+<div>.footer-note[&copy; 2022 Andrey Akinshin | CC BY-NC-SA 4.0]</div>
+
+    </textarea>
+  <script src="remark.min.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        macros: {
+          sb: ["{}_{#1}", 1]
+        }
+      }
+    };
+    remark.macros.scale = function (percentage) {
+      var url = this;
+      return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+    var slideshow = remark.create({
+      highlightStyle: "vs",
+      highlightLines: true,
+      highlightSpans: true,
+      ratio: '16:9',
+      countIncrementalSlides: false
+    });
+  </script>
+</body>
+
+</html>
